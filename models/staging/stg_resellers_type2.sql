@@ -10,7 +10,6 @@ SELECT
     customer_email,
     customer_first_name,
     customer_last_name,
-    STRPTIME(date_created, '%Y-%m-%d') AS date_created,
     series_city,
     STRPTIME(created_date, '%Y-%m-%d') AS created_date,
     transaction_id
