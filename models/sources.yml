@@ -1,0 +1,126 @@
+version: 2
+
+sources:
+  - name: dbt_demo
+    meta: 
+      external_location: "read_parquet('{{ env_var('INPUT_FILES_PATH') }}/{name}.parquet')"
+    tables:
+      - name: channels
+        description: "A table listing different sales channels with their unique identifiers."
+        columns:
+          - name: channel_name
+            data_type: varchar
+            description: "Name of the sales channel (e.g., in-store, web, mobile app)."
+          - name: channel_id
+            data_type: int64
+            description: "Unique identifier for each sales channel."
+
+      - name: customers
+        description: "Customer information including names and email addresses."
+        columns:
+          - name: customer_id
+            data_type: int64
+            description: "Unique identifier for each customer."
+          - name: first_name
+            data_type: varchar
+            description: "Customer's first name."
+          - name: last_name
+            data_type: varchar
+            description: "Customer's last name."
+          - name: email
+            data_type: varchar
+            description: "Customer's email address."
+
+      - name: products
+        description: "Product details including name, city of origin, and price."
+        columns:
+          - name: name
+            data_type: varchar
+            description: "Name of the product."
+          - name: city
+            data_type: varchar
+            description: "City associated with the product, possibly indicating origin or sales location."
+          - name: price
+            data_type: double
+            description: "Price of the product."
+          - name: product_id
+            data_type: varchar
+            description: "Unique identifier for the product."
+
+      - name: resellers_type1
+        description: "Transaction data involving products sold by various sales channels."
+        columns:
+          - name: product_name
+            data_type: varchar
+            description: "Name of the product sold."
+          - name: quantity
+            data_type: int64
+            description: "Quantity of items sold in the transaction."
+          - name: total_amount
+            data_type: double
+            description: "Total amount for the transaction."
+          - name: sales_channel
+            data_type: varchar
+            description: "Sales channel through which the product was sold (e.g., mobile app, in-store)."
+          - name: customer_email
+            data_type: varchar
+            description: "Email of the customer who made the purchase."
+          - name: series_city
+            data_type: varchar
+            description: "City associated with the transaction."
+          - name: created_date
+            data_type: varchar
+            description: "Date when the transaction was created."
+          - name: reseller_id
+            data_type: int64
+            description: "Unique identifier for the reseller."
+          - name: transaction_id
+            data_type: int64
+            description: "Unique identifier for the transaction."
+
+      - name: resellers_type2
+        description: "Additional transaction data involving products sold by resellers."
+        columns:
+          - name: date
+            data_type: varchar
+            description: "Date of the transaction."
+          - name: reseller_id
+            data_type: int64
+            description: "Unique identifier for the reseller."
+          - name: product_name
+            data_type: varchar
+            description: "Name of the product sold."
+          - name: qty
+            data_type: int64
+            description: "Quantity of items sold in the transaction."
+          - name: total_amount
+            data_type: double
+            description: "Total amount for the transaction."
+          - name: customer
+            data_type: struct
+            description: "Customer details, typically including nested fields like email."
+          - name: date_created
+            data_type: varchar
+            description: "Date the transaction record was created."
+          - name: series_city
+            data_type: varchar
+            description: "City associated with the transaction."
+          - name: created_date
+            data_type: varchar
+            description: "Creation date of the transaction."
+          - name: transaction_id
+            data_type: int64
+            description: "Unique identifier for the transaction."
+
+      - name: resellers
+        description: "Details of resellers, including their commission percentages."
+        columns:
+          - name: reseller_id
+            data_type: int64
+            description: "Unique identifier for each reseller."
+          - name: reseller_name
+            data_type: varchar
+            description: "Name of the reseller."
+          - name: commission_pct
+            data_type: double
+            description: "Commission percentage for the reseller."
